@@ -81,3 +81,34 @@ def maintenance():
     raise HTTPException(status_code=503, detail="Under maintenance")
 ```
 ## execute uvicorn main:app --reload
+## Testing..
+
+```
+4. Test it
+Easiest way: open http://127.0.0.1:8000/docs in your browser. For any endpoint, click Try it out and then Execute, and you’ll see the status code.
+
+Using curl: open a second terminal. In Windows PowerShell, type curl.exe, because plain curl runs a different PowerShell command. -i shows the status line in the output.
+
+Code	What triggers it	Command
+200	Item exists	curl.exe -i http://127.0.0.1:8000/items/1
+404	Item doesn’t exist	curl.exe -i http://127.0.0.1:8000/items/99
+400	Dividing by zero	curl.exe -i "http://127.0.0.1:8000/divide?a=5&b=0"
+422	Wrong type (handled by FastAPI)	curl.exe -i "http://127.0.0.1:8000/divide?a=5&b=abc"
+401	No token sent	curl.exe -i http://127.0.0.1:8000/admin
+403	Wrong token	curl.exe -i -H "token: wrong" http://127.0.0.1:8000/admin
+200	Correct token	curl.exe -i -H "token: admin-secret" http://127.0.0.1:8000/admin
+405	Wrong HTTP method (handled by FastAPI)	curl.exe -i -X PUT http://127.0.0.1:8000/divide
+307	Redirect	curl.exe -i http://127.0.0.1:8000/old-page
+500	Server crash	curl.exe -i http://127.0.0.1:8000/crash
+503	Maintenance	curl.exe -i http://127.0.0.1:8000/maintenance
+204	Delete succeeded	curl.exe -i -X DELETE http://127.0.0.1:8000/items/2
+Two more to try:
+
+201 Created: curl.exe -i -X POST http://127.0.0.1:8000/items/5 -H "Content-Type: application/json" -d "{\"name\":\"mango\",\"price\":10}"
+409 Conflict: run that same command again.
+5. Things to notice
+2xx means success, 3xx a redirect, 4xx the client made a mistake, and 5xx the server failed.
+FastAPI returns 422 and 405 by itself; you didn’t write any code for them.
+On /crash, check the server terminal and you’ll see the full error traceback. That’s the difference between a 500 and a 4xx you raised on purpose.
+If you want, I can create these files and start the server for you in the Terminal pane.
+```
