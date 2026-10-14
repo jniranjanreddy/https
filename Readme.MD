@@ -112,3 +112,29 @@ FastAPI returns 422 and 405 by itself; you didn’t write any code for them.
 On /crash, check the server terminal and you’ll see the full error traceback. That’s the difference between a 500 and a 4xx you raised on purpose.
 If you want, I can create these files and start the server for you in the Terminal pane.
 ```
+```
+curl.exe -i http://127.0.0.1:8000/items/1
+curl.exe -i http://127.0.0.1:8000/items/99
+curl.exe -i "http://127.0.0.1:8000/divide?a=5&b=0"
+curl.exe -i "http://127.0.0.1:8000/divide?a=5&b=abc"
+curl.exe -i http://127.0.0.1:8000/admin
+curl.exe -i -H "token: wrong" http://127.0.0.1:8000/admin
+curl.exe -i -H "token: admin-secret" http://127.0.0.1:8000/admin
+curl.exe -i -X PUT http://127.0.0.1:8000/divide
+curl.exe -i http://127.0.0.1:8000/old-page
+curl.exe -i http://127.0.0.1:8000/crash
+curl.exe -i http://127.0.0.1:8000/maintenance
+curl.exe -i -X DELETE http://127.0.0.1:8000/items/2
+
+curl -i http://127.0.0.1:8000/items/1
+curl -i http://127.0.0.1:8000/items/99
+curl -i "http://127.0.0.1:8000/divide?a=5&b=0"
+curl -i "http://127.0.0.1:8000/divide?a=5&b=abc"
+curl -i http://127.0.0.1:8000/admin
+curl -i -H "token: wrong" http://127.0.0.1:8000/admin
+curl -i -H "token: admin-secret" http://127.0.0.1:8000/admin
+curl -i -X PUT http://127.0.0.1:8000/divide
+curl -i http://127.0.0.1:8000/old-page
+curl -i http://127.0.0.1:8000/crash
+curl -i http://127.0.0.1:8000/maintenance
+curl -i -X DELETE http://127.0.0.1:8000/items/2```
