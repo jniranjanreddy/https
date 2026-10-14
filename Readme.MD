@@ -80,3 +80,4 @@ def crash():
 def maintenance():
     raise HTTPException(status_code=503, detail="Under maintenance")
 ```
+## execute uvicorn main:app --reload
